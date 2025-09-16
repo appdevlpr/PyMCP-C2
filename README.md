@@ -1,70 +1,37 @@
-# PyMCP-C2 (Python Master Control Program)
+# PyMCP-C2 (Python Master Control Program - Command & Control)
 
-A modular, Python-based Command and Control (C2) framework designed for educational purposes and authorized red team security testing. This project integrates an AI-assisted operator console to provide tactical suggestions during an engagement.
+## ⚠️ LEGAL AND ETHICAL WARNING ⚠️
 
----
+**PYMCP-C2 IS STRICTLY FOR AUTHORIZED SECURITY TESTING AND EDUCATIONAL PURPOSES ONLY.**
 
-### **⚠️ Ethical Use Warning ⚠️**
+### IMPORTANT LEGAL NOTICE
 
-This tool is intended for use in authorized security research and penetration testing engagements **only**. Using this tool against systems without explicit, written permission from the system owner is illegal. The developers of this project are not responsible for any misuse or damage caused by this program.
+1. **LAWFUL USE ONLY**: This software may only be used on systems for which you have explicit, written permission from the owner. Unauthorized use is illegal and may result in criminal charges.
 
----
+2. **COMPLIANCE WITH LAWS**: Users are solely responsible for ensuring their use of this tool complies with all applicable local, state, national, and international laws and regulations.
 
-### Features
+3. **NO WARRANTY**: This software is provided "as is" without any warranty. The developers assume no liability for damages or legal issues resulting from the use or misuse of this tool.
 
-* **Python-based Server & Agent:** Cross-platform and easy to modify.
-* **RESTful API:** C2 communication over standard HTTP/S protocols.
-* **Modular Agent Tasks:** Easily extend agent capabilities.
-* **AI-Powered Console:** Integrated OpenAI (GPT) assistant for reconnaissance analysis and tactical advice.
+4. **ETHICAL GUIDELINES**: 
+   - Always obtain proper authorization before testing
+   - Respect privacy and data integrity
+   - Do not cause damage to systems
+   - Report vulnerabilities responsibly
+   - Maintain confidentiality of findings
 
-### Project Structure
+5. **EXPORT CONTROL**: This software may be subject to export control regulations. By using this software, you confirm that you are not in a country where such export would be prohibited.
 
-```
+### Intended Use Cases
+- Authorized penetration testing engagements
+- Security research with proper authorization
+- Educational purposes in controlled environments
+- Red team exercises with explicit permission
 
-PyMCP-C2/ ├──mcp_server/          # C2 Server component ├──mcp_agent/           # Agent implant ├──mcp_console/         # Operator console with AI ├──docs/                # Documentation └──tests/               # Test cases
+### Prohibited Uses
+- Unauthorized access to computer systems
+- Network reconnaissance without permission
+- Data exfiltration without authorization
+- Disruption of services or systems
+- Any illegal activities
 
-```
-
-### Getting Started
-
-#### Prerequisites
-
-* Python 3.8+
-* An OpenAI API Key (for the AI features)
-
-#### Installation
-
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/PyMCP-C2.git
-    cd PyMCP-C2
-    ```
-2.  Install dependencies for each component:
-    ```bash
-    cd mcp_server && pip install -r requirements.txt
-    cd ../mcp_agent && pip install -r requirements.txt
-    cd ../mcp_console && pip install -r requirements.txt
-    ```
-3.  Configure the server and agent with your IP address.
-
-### Usage
-
-1.  **Start the Server:**
-    ```bash
-    cd mcp_server
-    python server.py
-    ```
-2.  **Run an Agent:**
-    ```bash
-    cd mcp_agent
-    python agent.py
-    ```
-3.  **Launch the Operator Console:**
-    ```bash
-    cd mcp_console
-    python console.py
-    ```
-
-### License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+By using this software, you acknowledge that you understand and agree to these terms and assume full responsibility for your actions.
