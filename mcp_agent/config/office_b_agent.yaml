@@ -1,0 +1,10 @@
+agent:
+  id: office_b_agent_001
+  server_url: "https://203.0.113.10:443"
+  checkin_interval: 300
+  jitter: 0.3
+
+stealth:
+  enabled: true
+  sleep_time: 3600
+  working_hours: "09:00-17:00"

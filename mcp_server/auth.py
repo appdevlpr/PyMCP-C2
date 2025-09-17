@@ -1,7 +1,7 @@
 import jwt
-import datetime
+from datetime import datetime, timedelta
 from functools import wraps
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 from logging_config import setup_logger
 
 logger = setup_logger('auth')
@@ -33,11 +33,32 @@ def token_required(f):
 
 def generate_token(user_id, expiration_hours=24):
     try:
+        if 'SECRET_KEY' not in current_app.config:
+            logger.error("SECRET_KEY not configured in application")
+            raise ValueError("Server configuration error: SECRET_KEY not set")
+            
+        secret_key = current_app.config['SECRET_KEY']
+        # Rest of the function...
+        
         token = jwt.encode({
             'user': user_id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=expiration_hours)
-        }, current_app.config['SECRET_KEY'])
+            'exp': datetime.utcnow() + timedelta(hours=expiration_hours)
+        }, secret_key, algorithm="HS256")
+        
         return token
     except Exception as e:
         logger.error(f"Token generation failed: {str(e)}")
+        raise
+
+
+def refresh_token(old_token, expiration_hours=24):
+    try:
+        # Decode without verification to get user info
+        data = jwt.decode(old_token, options={"verify_signature": False})
+        user_id = data['user']
+        
+        # Generate a new token
+        return generate_token(user_id, expiration_hours)
+    except Exception as e:
+        logger.error(f"Token refresh failed: {str(e)}")
         raise

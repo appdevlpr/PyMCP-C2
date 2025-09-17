@@ -38,4 +38,3 @@ def deobfuscate_code(obfuscated_code):
         return zlib.decompress(decoded).decode()
     except:
         return obfuscated_code
-
